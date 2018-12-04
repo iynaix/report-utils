@@ -54,20 +54,15 @@ const TimeOutput = ({ output }) => {
 
 export default {
     title: "Time Sum",
-    regex: /(-?)((\d+):)?(\d+):(\d{2})/gm,
+    regex: /(-?)((\d+):)?(\d+):(\d{2})/,
     processInput: parsedRegex => {
-        let hrs = 0,
-            mins = 0,
-            secs = 0
+        let totalSecs = 0
 
-        parsedRegex.forEach(([, hr, min, sec]) => {
-            hrs += hr | 0
-            mins += min | 0
-            secs += sec | 0
+        parsedRegex.forEach(([neg, , hr, min, sec]) => {
+            const total = (hr | 0) * 60 * 60 + (min | 0) * 60 + (sec | 0)
+            totalSecs += total * (neg === "-" ? -1 : 1)
         })
-
-        // return total number of seconds
-        return hrs * 60 * 60 + mins * 60 + secs * 60
+        return totalSecs
     },
     output: TimeOutput,
 }

@@ -1,6 +1,6 @@
 export default {
     title: "CRA Total Diff Calculator",
-    regex: /\(([+-])(.*)(KB|B)\)/gm,
+    regex: /\(([+-])(.*)(KB|B)\)/,
     processInput: parsedRegex => {
         let total = 0
 

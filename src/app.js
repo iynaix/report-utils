@@ -1,17 +1,14 @@
 import React from "react"
 
 const parseRegex = (str, re) => {
-    let m,
-        ret = []
-
-    while ((m = re.exec(str)) !== null) {
-        // This is necessary to avoid infinite loops with zero-width matches
-        if (m.index === re.lastIndex) {
-            re.lastIndex++
+    let ret = []
+    str.split(/\r?\n/).forEach(line => {
+        const m = re.exec(line)
+        if (m) {
+            // discard the entire match
+            ret.push(m.slice(1))
         }
-
-        ret.push(m.slice(1))
-    }
+    })
     return ret
 }
 
