@@ -15,7 +15,26 @@ const parseRegex = (str, re) => {
     return ret
 }
 
-const App = ({ title, processInput, regex, input, setInput }) => {
+const BasicOutput = ({ output }) => {
+    if (!output) {
+        return null
+    }
+
+    return (
+        <div className="section">
+            <div className="box">{output}</div>
+        </div>
+    )
+}
+
+const App = ({
+    title,
+    processInput,
+    regex,
+    input,
+    setInput,
+    output: OutputComponent = BasicOutput,
+}) => {
     const output = input ? processInput(parseRegex(input, regex)) : undefined
 
     return (
@@ -34,7 +53,7 @@ const App = ({ title, processInput, regex, input, setInput }) => {
                 />
             </div>
 
-            <div className="section">{output && <div className="box">{output}</div>}</div>
+            <OutputComponent output={output} />
         </div>
     )
 }
